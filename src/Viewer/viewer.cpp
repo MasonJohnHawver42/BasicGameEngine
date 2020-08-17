@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include "../CustomDataStructures/vector.cpp"
 
 class Viewer {
 protected:
@@ -9,7 +9,9 @@ public:
     window = w;
   }
 
-  Viewer() {}
+  Viewer() {
+    window = new sf::RenderWindow(sf::VideoMode(1280, 1280), "Demo Game 66");
+  }
 
   //getters
 

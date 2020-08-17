@@ -1,33 +1,24 @@
-#include "../Entity/basicWorldEntity.cpp"
+#include "../Entity/MetaEntities/worldEntity.cpp"
 
 void play() {
 
-  BasicWorld * world = new BasicWorld();
+  ParticleWorld * world = new TestWorld();
 
-  sf::RenderWindow * window = new sf::RenderWindow(sf::VideoMode(600, 600), "Demo Game");
+  double fps = 240.0;
 
-  sf::Event event;
+  sf::Clock * clock = new sf::Clock();
 
-  BasicWorldViewer * camera = new BasicWorldViewer(world, window);
+  world->updateFrame();
 
-  world->setViewer(camera);
+  while (world->continueGame()){
 
-  BasicWorldEntity * test = new BasicWorldEntity(world);
-
-  while (window->isOpen()){
-
-    while (window->pollEvent(event)){
-      if (event.type == sf::Event::EventType::Closed)
-        window->close();
+    if(clock->getElapsedTime().asSeconds() > 1. / fps) {
+      world->updateFrame();
+      clock->restart();
     }
 
-    window->clear();
-
-    camera->updateWindow();
-
-    window->display();
-
     world->update();
+
   }
 
   return;
