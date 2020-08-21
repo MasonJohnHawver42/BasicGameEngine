@@ -1,34 +1,39 @@
 #include "shape.cpp"
 
 class Circle : public Shape {
-private:
-  Vector<double> * pos;
+protected:
   double radius;
 
 public:
-  Circle(double x, double y, double r) : Shape() {
+  Circle(double x, double y, double d, double r) : Shape(x, y, d) {
     pos = new Vector<double>(x, y);
     raduis = r;
   }
 
   //getters
 
-  Vector<double> * getPos() { return pos; }
   double getRadius() { return radius; }
 
   //setters
-
-  void setPos(Vector<double> * p) { pos = p; }
-  void setPos(double x, double y) { pos->setX(x); pos->setY(y); }
 
   void setRaduis(double r) { radius = r; }
 
   //virts
 
+  virtual Circle * getCopy() {
+    Circle * c = new Circle(getPos()->x, getPos()->y, getDir(), radius);
+    return c;
+  }
+
+  virtual bool is isInside(Vector<double> * point) {
+    dis = point->getDis(*getPos());
+    return dis < radius;
+  }
+
   virtual void draw(sf::RenderWindow * window) {
     sf::CircleShape circle;
     circle.setRadius(radius);
-    circle.setPosition(pos->getX(), pos->getY());
+    circle.setPosition(getPos()->x, getPos()->y);
 
     window->draw(circle);
   }

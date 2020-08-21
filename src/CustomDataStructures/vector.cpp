@@ -5,11 +5,10 @@ using namespace std;
 
 template<class T> class Vector
 {
-private:
+public:
   T x;
   T y;
 
-public:
   Vector() {}
 
   Vector(T x1, T y1)
